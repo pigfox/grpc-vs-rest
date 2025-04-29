@@ -167,3 +167,59 @@ $ (main) k6 run grpc.js
 running (01m42.4s), 000/100 VUs, 100000 complete and 0 interrupted iterations
 default ✓ [===============] 100 VUs  01m42.4s/10m0s  100000/100000 shared iters
 ```
+## Summary: REST vs gRPC Load Test with Grafana k6
+```
+Both REST and gRPC services were benchmarked using Grafana k6 under identical conditions: 100,000 iterations distributed over 100 virtual users (VUs), with each test completing in ~1m41s. Here's a breakdown of the key findings:
+
+✅ Stability
+REST: 0.00% failed requests (100% success).
+
+gRPC: 0.00% failed requests (100% success).
+
+Both protocols demonstrated excellent stability under load.
+
+⚡ Latency (Request Duration)
+REST http_req_duration:
+
+Avg: 635.85µs
+
+P95: 1.59ms
+
+gRPC grpc_req_duration:
+
+Avg: 676.71µs
+
+P95: 1.75ms
+
+Winner: REST is slightly faster on average and at the 95th percentile, though the difference is minor (<7%).
+
+🕒 Iteration Duration
+REST: Avg = 101.19ms
+
+gRPC: Avg = 102.32ms
+
+gRPC iterations took marginally longer, likely due to protocol overhead or larger payloads.
+
+📦 Network Usage
+REST:
+
+Received: 17 MB
+
+Sent: 8.7 MB
+
+gRPC:
+
+Received: 16 MB
+
+Sent: 26 MB
+
+Observation: gRPC sent significantly more data—~3x that of REST. This suggests more verbose or less compact client request payloads in the test setup.
+
+🧾 Conclusion
+Both REST and gRPC performed exceptionally well under identical heavy load conditions, with zero errors and near-identical iteration throughput. REST had slightly faster response times and more efficient data usage, while gRPC's data transmission was heavier, potentially due to richer message formats or less optimized serialization.
+
+If minimizing latency and bandwidth is critical, REST slightly edges out. However, gRPC remains competitive and may offer stronger benefits in more complex service-to-service communication scenarios.
+
+Would you like a visual chart comparing the metrics?
+```
+![alt text](image.png)
