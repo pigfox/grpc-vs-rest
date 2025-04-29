@@ -6,10 +6,11 @@ go run ./rest/main.go
 run test
 go run ./grpc/main.go
 run test
-
+```
 Use a benchmarking tool like hey (for HTTP)
 
-REST
+## REST
+```
 $ hey -n 100000 -c 50 http://localhost:8888/user
 Summary:
   Total:	1.6221 secs
@@ -53,8 +54,9 @@ Details (average, fastest, slowest):
 
 Status code distribution:
   [200]	100000 responses
-
-gRPC:
+```
+## gRPC
+```
 $ hey -n 100000 -c 50 http://localhost:8888/user
 
 Summary:
