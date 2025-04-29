@@ -98,13 +98,7 @@ Status code distribution:
   [OK]   100000 responses   
 ```
 
-## Using K6 in order to have a common test tool for both protocols.
-
-         /\      Grafana   /‾‾/  
-    /\  /  \     |\  __   /  /   
-   /  \/    \    | |/ /  /   ‾‾\ 
-  /          \   |   (  |  (‾)  |
- / __________ \  |_|\_\  \_____/ 
+## Using Grafana k6 in order to have a common test tool for both protocols.
 
 ## REST
 ```
