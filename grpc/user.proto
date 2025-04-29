@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "./user"; // Go package option
+
+// User service definition
+service UserService {
+  rpc GetUser(UserRequest) returns (UserResponse);
+}
+
+// Request message to get user details
+message UserRequest {
+  string id = 1;
+}
+
+// Response message with user details
+message UserResponse {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+}
