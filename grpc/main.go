@@ -7,7 +7,6 @@ import (
 	"net"
 
 	"google.golang.org/grpc"
-	// Import the generated code
 )
 
 type server struct {

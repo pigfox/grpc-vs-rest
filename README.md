@@ -58,7 +58,7 @@ Status code distribution:
 ```
 ## gRPC
 ```
-./grpc$ ghz --insecure \
+./grpc $ ghz --insecure \
   --proto user.proto \
   --call user.UserService.GetUser \
   -c 100 -n 100000 \
@@ -96,4 +96,80 @@ Latency distribution:
 
 Status code distribution:
   [OK]   100000 responses   
+```
+
+## Using K6 in order to have a common test tool for both protocols.
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+## REST
+```
+$ k6 run rest.js 
+
+     execution: local
+        script: rest.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 100 max VUs, 10m30s max duration (incl. graceful stop):
+              * default: 100000 iterations shared among 100 VUs (maxDuration: 10m0s, gracefulStop: 30s)
+
+  █ TOTAL RESULTS 
+
+    HTTP
+    http_req_duration.......................................................: avg=635.85µs min=78.07µs  med=451.19µs max=9.31ms   p(90)=1.29ms   p(95)=1.59ms  
+      { expected_response:true }............................................: avg=635.85µs min=78.07µs  med=451.19µs max=9.31ms   p(90)=1.29ms   p(95)=1.59ms  
+    http_req_failed.........................................................: 0.00%  0 out of 100000
+    http_reqs...............................................................: 100000 987.756391/s
+
+    EXECUTION
+    iteration_duration......................................................: avg=101.19ms min=100.12ms med=101.09ms max=111.21ms p(90)=102.03ms p(95)=102.48ms
+    iterations..............................................................: 100000 987.756391/s
+    vus.....................................................................: 100    min=100         max=100
+    vus_max.................................................................: 100    min=100         max=100
+
+    NETWORK
+    data_received...........................................................: 17 MB  166 kB/s
+    data_sent...............................................................: 8.7 MB 86 kB/s
+
+running (01m41.2s), 000/100 VUs, 100000 complete and 0 interrupted iterations
+default ✓ [===============] 100 VUs  01m41.2s/10m0s  100000/100000 shared iters
+```
+## gRPC
+```
+$ (main) k6 run grpc.js 
+
+     execution: local
+        script: grpc.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 100 max VUs, 10m30s max duration (incl. graceful stop):
+              * default: 100000 iterations shared among 100 VUs (maxDuration: 10m0s, gracefulStop: 30s)
+
+  █ TOTAL RESULTS 
+
+    checks_total.......................: 100000  976.602844/s
+    checks_succeeded...................: 100.00% 100000 out of 100000
+    checks_failed......................: 0.00%   0 out of 100000
+
+    ✓ status is OK
+
+    EXECUTION
+    iteration_duration.....................: avg=102.32ms min=100.56ms med=102.03ms max=146.99ms p(90)=103.48ms p(95)=104.76ms
+    iterations.............................: 100000 976.602844/s
+    vus....................................: 100    min=100      max=100
+    vus_max................................: 100    min=100      max=100
+
+    NETWORK
+    data_received..........................: 16 MB  159 kB/s
+    data_sent..............................: 26 MB  255 kB/s
+
+    GRPC
+    grpc_req_duration......................: avg=676.71µs min=136.09µs med=462.37µs max=34.08ms  p(90)=1.28ms   p(95)=1.75ms  
+
+running (01m42.4s), 000/100 VUs, 100000 complete and 0 interrupted iterations
+default ✓ [===============] 100 VUs  01m42.4s/10m0s  100000/100000 shared iters
 ```
