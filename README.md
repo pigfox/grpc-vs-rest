@@ -219,7 +219,5 @@ Observation: gRPC sent significantly more data—~3x that of REST. This suggests
 Both REST and gRPC performed exceptionally well under identical heavy load conditions, with zero errors and near-identical iteration throughput. REST had slightly faster response times and more efficient data usage, while gRPC's data transmission was heavier, potentially due to richer message formats or less optimized serialization.
 
 If minimizing latency and bandwidth is critical, REST slightly edges out. However, gRPC remains competitive and may offer stronger benefits in more complex service-to-service communication scenarios.
-
-Would you like a visual chart comparing the metrics?
 ```
 ![alt text](image.png)
